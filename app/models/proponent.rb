@@ -10,6 +10,5 @@ class Proponent < ApplicationRecord
   }
 
   validates :name, :document, :salary, presence: true
-  validates :inss_rate_type, numericality: { only_integer: true }, allow_nil: true
   validates :inss_rate, numericality: true, allow_nil: true
 end
