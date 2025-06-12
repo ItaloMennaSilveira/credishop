@@ -1,0 +1,19 @@
+/ Não usa paginator.prev_page — usa paginator.each_page + lógica de página atual
+
+nav aria-label="Page navigation"
+  ul.pagination
+    - if current_page > 1
+      li.page-item
+        = link_to raw('<i class="bi bi-chevron-double-left"></i>'), url_for(page: current_page - 1), class: 'page-link'
+
+    - paginator.each_page do |page|
+      - if page.left_outer? || page.right_outer? || page.inside_window? || page.right_inner? || page.left_inner?
+        li.page-item class=(page.current? ? 'active' : '')
+          = link_to page, url_for(page: page), class: 'page-link'
+      - elsif !page.was_truncated?
+        li.page-item.disabled
+          span.page-link ...
+
+    - if current_page < total_pages
+      li.page-item
+        = link_to raw('<i class="bi bi-chevron-double-right"></i>'), url_for(page: current_page + 1), class: 'page-link'
