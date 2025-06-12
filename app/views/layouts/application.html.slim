@@ -20,15 +20,22 @@ html
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
     = javascript_importmap_tags
 
-  body
-    - flash.each do |type, message|
-      - if type.to_s == 'notice'
-        - bootstrap_class = 'alert alert-info'
-      - elsif type.to_s == 'alert'
-        - bootstrap_class = 'alert alert-danger'
-      - else
-        - bootstrap_class = 'alert alert-warning'
-      div class=bootstrap_class role="alert"
-        = message
+body
+  - flash.each do |type, message|
+    - if type.to_s == 'notice'
+      - bootstrap_class = 'alert alert-info'
+    - elsif type.to_s == 'alert'
+      - bootstrap_class = 'alert alert-danger'
+    - else
+      - bootstrap_class = 'alert alert-warning'
+    div class=bootstrap_class role="alert"
+      = message
 
-    = yield
+  - if user_signed_in?
+    nav.navbar.navbar-light.bg-light.mb-3
+      .container-fluid
+        span.navbar-text
+          | Logged in as: #{current_user.email}
+        = button_to 'Logout', destroy_user_session_path, method: :delete, class: "btn btn-outline-danger btn-sm"
+
+  = yield

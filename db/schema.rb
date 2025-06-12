@@ -30,7 +30,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_06_12_175539) do
 
   create_table "contacts", force: :cascade do |t|
     t.bigint "proponent_id", null: false
-    t.integer "type"
+    t.integer "contact_type"
     t.string "value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

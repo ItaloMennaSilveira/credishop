@@ -1,0 +1,29 @@
+= form_with(model: proponent, local: true) do |form|
+  - if proponent.errors.any?
+    .alert.alert-danger
+      h4= "#{pluralize(proponent.errors.count, 'error')} prohibited this proponent from being saved:"
+      ul
+        - proponent.errors.full_messages.each do |msg|
+          li= msg
+
+  .mb-3
+    = form.label :name
+    = form.text_field :name, class: 'form-control'
+
+  .mb-3
+    = form.label :document
+    = form.text_field :document, class: 'form-control'
+
+  .mb-3
+    = form.label :salary
+    = form.number_field :salary, step: 0.01, class: 'form-control'
+
+  .mb-3
+    = form.label :inss_rate_type
+    = form.select :inss_rate_type, Proponent.inss_rate_types.keys.map { |w| [w.humanize, w] }, { include_blank: true }, class: 'form-select'
+
+  .mb-3
+    = form.label :inss_rate
+    = form.number_field :inss_rate, step: 0.01, class: 'form-control'
+
+  = form.submit class: 'btn btn-primary'

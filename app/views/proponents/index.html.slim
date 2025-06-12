@@ -1,0 +1,25 @@
+h1 Proponents
+
+= link_to 'New Proponent', new_proponent_path, class: 'btn btn-primary mb-3'
+
+table.table.table-striped
+  thead
+    tr
+      th Name
+      th Document
+      th Salary
+      th INSS Rate Type
+      th INSS Rate
+      th Actions
+  tbody
+    - @proponents.each do |proponent|
+      tr
+        td = proponent.name
+        td = proponent.document
+        td = number_to_currency(proponent.salary)
+        td = proponent.inss_rate_type
+        td = proponent.inss_rate
+        td
+          = link_to 'Show', proponent_path(proponent), class: 'btn btn-sm btn-info'
+          = link_to 'Edit', edit_proponent_path(proponent), class: 'btn btn-sm btn-warning mx-1'
+          = link_to 'Delete', proponent_path(proponent), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger'
