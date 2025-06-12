@@ -1,0 +1,19 @@
+.container.mt-5
+  .row.justify-content-center
+    .col-md-4
+      h2.text-center.mb-4 Login
+
+      = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+        .mb-3
+          = f.label :email
+          = f.email_field :email, class: "form-control", autofocus: true, autocomplete: "email"
+
+        .mb-3
+          = f.label :password
+          = f.password_field :password, class: "form-control", autocomplete: "current-password"
+
+        .mb-3
+          = f.submit "Entrar", class: "btn btn-primary w-100"
+
+      .text-center.mt-3
+        = link_to "Criar conta", new_user_registration_path
