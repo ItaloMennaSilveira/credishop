@@ -23,3 +23,5 @@ table.table.table-striped
           = link_to 'Show', proponent_path(proponent), class: 'btn btn-sm btn-info'
           = link_to 'Edit', edit_proponent_path(proponent), class: 'btn btn-sm btn-warning mx-1'
           = link_to 'Delete', proponent_path(proponent), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger'
+
+= paginate @proponents
