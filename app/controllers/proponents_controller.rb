@@ -10,9 +10,14 @@ class ProponentsController < ApplicationController
 
   def new
     @proponent = Proponent.new
+    @proponent.addresses.build
+    @proponent.contacts.build
   end
 
   def edit
+    @proponent = Proponent.find(params[:id])
+    @proponent.addresses.build if @proponent.addresses.empty?
+    @proponent.contacts.build if @proponent.contacts.empty?
   end
 
   def create
@@ -44,6 +49,10 @@ class ProponentsController < ApplicationController
   end
 
   def proponent_params
-    params.require(:proponent).permit(:name, :document, :salary, :inss_rate_type, :inss_rate)
+    params.require(:proponent).permit(
+      :name, :document, :salary, :inss_rate_type, :inss_rate,
+      addresses_attributes: [:id, :street, :number, :zip_code, :city, :state, :_destroy],
+      contacts_attributes: [:id, :contact_type, :value, :_destroy]
+    )
   end
 end

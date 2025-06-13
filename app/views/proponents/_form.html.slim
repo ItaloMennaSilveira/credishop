@@ -1,29 +1,14 @@
-= form_with(model: proponent, local: true) do |form|
-  - if proponent.errors.any?
-    .alert.alert-danger
-      h4= "#{pluralize(proponent.errors.count, 'error')} prohibited this proponent from being saved:"
+= form_with(model: @proponent, local: true) do |f|
+  - if @proponent.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@proponent.errors.count, "error")} prohibited this proponent from being saved:"
       ul
-        - proponent.errors.full_messages.each do |msg|
-          li= msg
+        - @proponent.errors.full_messages.each do |message|
+          li = message
 
-  .mb-3
-    = form.label :name
-    = form.text_field :name, class: 'form-control'
+  = render 'proponents/form_fields', f: f
+  = render 'proponents/addresses_fields', f: f
+  = render 'proponents/contacts_fields', f: f
 
-  .mb-3
-    = form.label :document
-    = form.text_field :document, class: 'form-control'
-
-  .mb-3
-    = form.label :salary
-    = form.number_field :salary, step: 0.01, class: 'form-control'
-
-  .mb-3
-    = form.label :inss_rate_type
-    = form.select :inss_rate_type, Proponent.inss_rate_types.keys.map { |w| [w.humanize, w] }, { include_blank: true }, class: 'form-select'
-
-  .mb-3
-    = form.label :inss_rate
-    = form.number_field :inss_rate, step: 0.01, class: 'form-control'
-
-  = form.submit class: 'btn btn-primary'
+  .actions
+    = f.submit 'Save', class: 'btn btn-primary'

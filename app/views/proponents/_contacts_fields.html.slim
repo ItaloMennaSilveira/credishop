@@ -1,0 +1,13 @@
+hr
+h3 Contacts
+#contacts
+  - f.object.contacts.build if f.object.contacts.empty?
+  = f.fields_for :contacts do |contact|
+    = render 'proponents/contact_fields', f: contact
+
+= button_tag type: 'button', class: 'btn btn-secondary mb-3', onclick: "addFields('contacts')"
+  | Add Contact
+
+template#contact-template.hidden
+  = f.fields_for :contacts, f.object.contacts.build, child_index: "NEW_RECORD" do |contact|
+    = render 'proponents/contact_fields', f: contact

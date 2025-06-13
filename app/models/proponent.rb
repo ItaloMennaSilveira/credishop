@@ -2,6 +2,9 @@ class Proponent < ApplicationRecord
   has_many :addresses, dependent: :destroy
   has_many :contacts, dependent: :destroy
 
+  accepts_nested_attributes_for :addresses, allow_destroy: true
+  accepts_nested_attributes_for :contacts, allow_destroy: true
+
   enum :inss_rate_type, {
     up_to_1518: 1,
     from_1518_to_2793_88: 2,

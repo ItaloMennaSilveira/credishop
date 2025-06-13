@@ -16,5 +16,21 @@ dl
   dt INSS Rate
   dd = @proponent.inss_rate
 
+  - if @proponent.addresses.any?
+    dt Addresses
+    dd
+      ul.list-unstyled.mb-3
+        - @proponent.addresses.each do |address|
+          li
+            | #{address.street}, #{address.number}, #{address.zip_code}, #{address.city} - #{address.state}
+
+  - if @proponent.contacts.any?
+    dt Contacts
+    dd
+      ul.list-unstyled.mb-3
+        - @proponent.contacts.each do |contact|
+          li
+            | #{contact.contact_type.humanize}: #{contact.value}
+
 = link_to 'Edit', edit_proponent_path(@proponent), class: 'btn btn-warning me-2'
 = link_to 'Back', proponents_path, class: 'btn btn-secondary'

@@ -1,0 +1,19 @@
+.mb-3
+  = f.label :name
+  = f.text_field :name, class: 'form-control'
+
+.mb-3
+  = f.label :document
+  = f.text_field :document, class: 'form-control'
+
+.mb-3
+  = f.label :salary
+  = f.text_field :salary, class: 'form-control'
+
+.mb-3
+  = f.label :inss_rate_type
+  = f.select :inss_rate_type, Proponent.inss_rate_types.keys.map { |k| [k.humanize, k] }, {}, class: 'form-select'
+
+.mb-3
+  = f.label :inss_rate
+  = f.text_field :inss_rate, class: 'form-control'
