@@ -24,7 +24,7 @@ class InssRateCalculatorService
       else
         amount = @salary - previous_value
         total += amount * range[:rate]
-        salary_range_enum = bracket[:enum]
+        salary_range_enum = range[:enum]
         break
       end
     end
