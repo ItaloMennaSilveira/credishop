@@ -2,12 +2,6 @@ import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
   static targets = ["salary"]
-  static values = { proponentId: Number }
-
-  connect() {
-    this.channel = `proponent_${this.proponentIdValue}`
-    this.subscribeToChannel()
-  }
 
   calculate(event) {
     if (event.type === "keydown") {
@@ -25,32 +19,19 @@ export default class extends Controller {
         "Accept": "application/json",
         "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
       },
-      body: JSON.stringify({
-        salary: salary,
-        proponent_id: this.proponentIdValue
-      })
-    })
+      body: JSON.stringify({ salary: salary })
+    }).then(response => response.json())
+      .then(data => this.updateRateFields(data))
+      .catch(error => console.error("INSS calculation error:", error))
   }
 
-  subscribeToChannel() {
-    const channelName = this.channel
-    const element = document.querySelector(`[data-controller~="inss"]`)
+  updateRateFields(data) {
+    const rateField = document.querySelector("#proponent_inss_rate");
+    const rateTypeField = document.querySelector("#proponent_inss_rate_type");
+    const rateTypeDisplay = document.querySelector("#proponent_inss_rate_type_display");
 
-    if (!element) return
-
-    const observer = new MutationObserver(() => {
-      const rateField = document.querySelector("#proponent_inss_rate")
-      const rateTypeField = document.querySelector("#proponent_inss_rate_type")
-
-      const inssRateElement = document.querySelector("[data-inss-rate]")
-      const inssRateTypeElement = document.querySelector("[data-inss-rate-type]")
-
-      if (inssRateElement && inssRateTypeElement) {
-        if (rateField) rateField.value = inssRateElement.dataset.inssRate
-        if (rateTypeField) rateTypeField.value = inssRateTypeElement.dataset.inssRateType
-      }
-    })
-
-    observer.observe(document.body, { childList: true, subtree: true })
+    if (rateField) rateField.value = data.inss_rate;
+    if (rateTypeField) rateTypeField.value = data.inss_rate_type;
+    if (rateTypeDisplay) rateTypeDisplay.value = data.inss_rate_type;
   }
 }

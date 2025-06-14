@@ -37,10 +37,13 @@ class ProponentsController < ApplicationController
   end
 
   def calculate_inss
-    proponent = Proponent.find(params[:proponent_id])
     salary = params[:salary].to_f
-    InssRateCalculatorJob.perform_later(proponent.id, salary)
-    head :ok
+    result = InssRateCalculatorService.new(salary).calculate
+
+    render json: {
+      inss_rate: result[:rate],
+      inss_rate_type: result[:rate_type]
+    }
   end
 
   def destroy
