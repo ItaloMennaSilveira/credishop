@@ -15,7 +15,6 @@ class ProponentsController < ApplicationController
   end
 
   def edit
-    @proponent = Proponent.find(params[:id])
     @proponent.addresses.build if @proponent.addresses.empty?
     @proponent.contacts.build if @proponent.contacts.empty?
   end
@@ -33,8 +32,15 @@ class ProponentsController < ApplicationController
     if @proponent.update(proponent_params)
       redirect_to @proponent, notice: 'Proponent was successfully updated.'
     else
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
+  end
+
+  def calculate_inss
+    proponent = Proponent.find(params[:proponent_id])
+    salary = params[:salary].to_f
+    InssRateCalculatorJob.perform_later(proponent.id, salary)
+    head :ok
   end
 
   def destroy
