@@ -9,7 +9,7 @@ export default class extends Controller {
       event.preventDefault()
     }
 
-    const salary = this.salaryTarget.value
+    const salary = document.querySelector('input[name="proponent[salary]"]')?.value
     if (!salary) return
 
     fetch("/proponents/calculate_inss", {
