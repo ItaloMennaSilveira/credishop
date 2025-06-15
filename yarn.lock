@@ -2,6 +2,13 @@
 # yarn lockfile v1
 
 
+"@babel/runtime-corejs3@^7.24.4":
+  version "7.27.6"
+  resolved "https://registry.yarnpkg.com/@babel/runtime-corejs3/-/runtime-corejs3-7.27.6.tgz#97644153808a62898e7c05f3361501417db3c48b"
+  integrity sha512-vDVrlmRAY8z9Ul/HxT+8ceAru95LQgkSKiXkSYZvqtbkPSfhZJgpRp45Cldbh1GJ1kxzQkI70AqyrTI58KpaWQ==
+  dependencies:
+    core-js-pure "^3.30.2"
+
 "@parcel/watcher-android-arm64@2.5.1":
   version "2.5.1"
   resolved "https://registry.yarnpkg.com/@parcel/watcher-android-arm64/-/watcher-android-arm64-2.5.1.tgz#507f836d7e2042f798c7d07ad19c3546f9848ac1"
@@ -174,9 +181,9 @@ browserslist@^4.24.4:
     update-browserslist-db "^1.1.3"
 
 caniuse-lite@^1.0.30001702, caniuse-lite@^1.0.30001718:
-  version "1.0.30001722"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001722.tgz#ec25a2b3085b25b9079b623db83c22a70882ce85"
-  integrity sha512-DCQHBBZtiK6JVkAGw7drvAMK0Q0POD/xZvEmDp6baiMMP6QXXk9HpD6mNYBZWhOPG6LvIDb82ITqtWjhDckHCA==
+  version "1.0.30001723"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001723.tgz#c4f3174f02089720736e1887eab345e09bb10944"
+  integrity sha512-1R/elMjtehrFejxwmexeXAtae5UO9iSyFn6G/I806CYC/BLyyBk1EPhrKBkWhy6wM6Xnm47dSJQec+tLJ39WHw==
 
 chokidar@^3.3.0, chokidar@^3.5.2:
   version "3.6.0"
@@ -226,6 +233,11 @@ concat-map@0.0.1:
   resolved "https://registry.yarnpkg.com/concat-map/-/concat-map-0.0.1.tgz#d8a96bd77fd68df7793a73036a3ba0d5405d477b"
   integrity sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==
 
+core-js-pure@^3.30.2:
+  version "3.43.0"
+  resolved "https://registry.yarnpkg.com/core-js-pure/-/core-js-pure-3.43.0.tgz#4df9c949c7abde839a8398d16a827a76856b1f0c"
+  integrity sha512-i/AgxU2+A+BbJdMxh3v7/vxi2SbFqxiFmg6VsDwYB4jkucrd1BZNA9a9gphC0fYMG5IBSgQcbQnk865VCLe7xA==
+
 debug@^4:
   version "4.4.1"
   resolved "https://registry.yarnpkg.com/debug/-/debug-4.4.1.tgz#e5a8bc6cbc4c6cd3e64308b0693a3d4fa550189b"
@@ -244,9 +256,9 @@ detect-libc@^1.0.3:
   integrity sha512-pGjwhsmsp4kL2RTz08wcOlGN83otlqHeD/Z5T8GXZB+/YcpQ/dgo+lbU8ZsGxV0HIvqqxo9l7mqYwyYMD9bKDg==
 
 electron-to-chromium@^1.5.160:
-  version "1.5.166"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.5.166.tgz#3fff386ed473cc2169dbe2d3ace9592262601114"
-  integrity sha512-QPWqHL0BglzPYyJJ1zSSmwFFL6MFXhbACOCcsCdUMCkzPdS9/OIBVxg516X/Ado2qwAq8k0nJJ7phQPCqiaFAw==
+  version "1.5.167"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.5.167.tgz#dab251d7161985306c54d9df2b7c1e651589a4d2"
+  integrity sha512-LxcRvnYO5ez2bMOFpbuuVuAI5QNeY1ncVytE/KXaL6ZNfzX1yPlAO0nSOyIHx2fVAuUprMqPs/TdVhUFZy7SIQ==
 
 emoji-regex@^8.0.0:
   version "8.0.0"
@@ -316,10 +328,17 @@ ignore-by-default@^1.0.1:
   resolved "https://registry.yarnpkg.com/ignore-by-default/-/ignore-by-default-1.0.1.tgz#48ca6d72f6c6a3af00a9ad4ae6876be3889e2b09"
   integrity sha512-Ius2VYcGNk7T90CppJqcIkS5ooHUZyIQK+ClZfMfMNFEF9VSE73Fq+906u/CWu92x4gzZMWOwfFYckPObzdEbA==
 
+imask@^7.6.1:
+  version "7.6.1"
+  resolved "https://registry.yarnpkg.com/imask/-/imask-7.6.1.tgz#04fa4693bf47a4a71bbf7325408e0d058a74dcad"
+  integrity sha512-sJlIFM7eathUEMChTh9Mrfw/IgiWgJqBKq2VNbyXvBZ7ev/IlO6/KQTKlV/Fm+viQMLrFLG/zCuudrLIwgK2dg==
+  dependencies:
+    "@babel/runtime-corejs3" "^7.24.4"
+
 immutable@^5.0.2:
-  version "5.1.2"
-  resolved "https://registry.yarnpkg.com/immutable/-/immutable-5.1.2.tgz#e8169476414505e5a4fa650107b65e1227d16d4b"
-  integrity sha512-qHKXW1q6liAk1Oys6umoaZbDRqjcjgSrbnrifHsfsttza7zcvRAsL7mMV6xWcyhwQy7Xj5v4hhbr6b+iDYwlmQ==
+  version "5.1.3"
+  resolved "https://registry.yarnpkg.com/immutable/-/immutable-5.1.3.tgz#e6486694c8b76c37c063cca92399fa64098634d4"
+  integrity sha512-+chQdDfvscSF1SJqv2gn4SRO2ZyS3xL3r7IW/wWEEzrzLisnOlKiQu5ytC/BVNcS15C39WT2Hg/bjKjDMcu+zg==
 
 is-binary-path@~2.1.0:
   version "2.1.0"

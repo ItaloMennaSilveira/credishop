@@ -1,14 +1,14 @@
 .mb-3
   = f.label :name
-  = f.text_field :name, class: 'form-control'
+  = f.text_field :name, class: 'form-control', placeholder: 'Digite o nome completo'
 
 .mb-3
   = f.label :document
-  = f.text_field :document, class: 'form-control'
+  = f.text_field :document, class: 'form-control', placeholder: 'Ex: 123.456.789-00', data: { controller: 'mask', mask_target: 'document' }
 
 .mb-3
   = f.label :salary
-  = f.text_field :salary, class: "form-control", data: { controller: "inss", action: "keydown->inss#calculate blur->inss#calculate", inss_target: "salary" }
+  = f.text_field :salary, class: "form-control", placeholder: "Informe o salário bruto (Ex: 3500.00)", data: { controller: "mask inss", action: "keydown->inss#calculate blur->inss#calculate", inss_target: "salary", mask_target: "salary" }
 
 .mb-3
   = f.label :inss_rate_type

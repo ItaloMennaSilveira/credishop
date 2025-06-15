@@ -25,8 +25,6 @@ gem "kaminari"
 
 gem "slim-rails"
 
-gem "bootstrap"
-
 gem "popper_js"
 
 gem "cssbundling-rails"
