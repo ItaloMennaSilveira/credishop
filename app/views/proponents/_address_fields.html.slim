@@ -1,27 +1,24 @@
-.address-fields.mb-3.border.p-3 data-controller="mask"
+.address-fields.mb-3.border.p-3 data-controller="mask via-cep"
   = f.hidden_field :id
-  .mb-2
-    = f.label :street
-    = f.text_field :street, class: 'form-control', placeholder: "Rua Exemplo"
-
-  .mb-2
-    = f.label :number
-    = text_field_tag :proponent_number_masked, f.object.number, class: 'form-control', data: { mask_target: "number" }, placeholder: "123"
-    = f.hidden_field :number
 
   .mb-2
     = f.label :zip_code
-    = text_field_tag :proponent_zip_code_masked, f.object.zip_code, class: 'form-control', data: { mask_target: "zip", hidden_name: f.object_name + "[zip_code]" }, placeholder: "00000-000"
+    = text_field_tag :proponent_zip_code_masked, f.object.zip_code, class: 'form-control', data: { "mask-target": "zip", "via-cep-target": "zip", hidden_name: f.object_name + "[zip_code]" }, placeholder: "00000-000"
     = f.hidden_field :zip_code
 
   .mb-2
     = f.label :city
-    = f.text_field :city, class: 'form-control', placeholder: "Cidade"
+    = f.text_field :city, class: 'form-control', placeholder: "Cidade", data: { "via-cep-target": "city" }
 
   .mb-2
     = f.label :state
-    = f.text_field :state, class: 'form-control', placeholder: "Estado"
+    = f.text_field :state, class: 'form-control', placeholder: "Estado", data: { "via-cep-target": "state" }
 
-  .form-check
-    = f.check_box :_destroy
-    = f.label :_destroy, "Remove", class: 'form-check-label'
+  .mb-2
+    = f.label :street
+    = f.text_field :street, class: 'form-control', placeholder: "Rua Exemplo", data: { "via-cep-target": "street" }
+
+  .mb-2
+    = f.label :number
+    = text_field_tag :proponent_number_masked, f.object.number, class: 'form-control', data: { "mask-target": "address_number" }, placeholder: "123"
+    = f.hidden_field :number
