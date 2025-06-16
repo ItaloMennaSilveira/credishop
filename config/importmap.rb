@@ -11,4 +11,5 @@ pin "@popperjs/core", to: "@popperjs--core.js" # @2.11.8
 pin "@rails/ujs", to: "rails-ujs.js"
 pin "add_nested_fields", to: "add_nested_fields.js"
 pin "imask", to: "imask.min.js", preload: true
-
+pin "@rails/actioncable", to: "actioncable.esm.js"
+pin_all_from "app/javascript/channels", under: "channels"
