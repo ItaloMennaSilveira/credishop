@@ -20,5 +20,5 @@
 
   .mb-2
     = f.label :number
-    = text_field_tag :proponent_number_masked, f.object.number, class: 'form-control', data: { "mask-target": "address_number" }, placeholder: "123"
+    = text_field_tag :proponent_number_masked, f.object.number, class: 'form-control', data: { "mask-target": "number",  hidden_name: f.object_name + "[number]" }, placeholder: "123"
     = f.hidden_field :number

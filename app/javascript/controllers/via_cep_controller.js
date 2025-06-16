@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["zip", "street", "city", "state", "number"]
+  static targets = ["zip", "street", "city", "state"]
 
   connect() {
     if (this.hasZipTarget) {
