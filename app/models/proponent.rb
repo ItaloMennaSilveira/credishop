@@ -12,6 +12,36 @@ class Proponent < ApplicationRecord
     from_4190_84_to_8157_41: 4
   }
 
-  validates :name, :document, :salary, presence: true
+  validates :name, presence: true
+  validates :document, presence: true
+  validates :salary, presence: true, numericality: true
   validates :inss_rate, numericality: true, allow_nil: true
+
+  validate :cpf_must_be_valid
+  validate :inss_data_must_be_consistent
+
+  private
+
+  def cpf_must_be_valid
+    return if document.blank?
+
+    unmasked_cpf = document.gsub(/\D/, "")
+    unless CPF.valid?(unmasked_cpf)
+      errors.add(:document, "deve ser um CPF válido")
+    end
+  end
+
+  def inss_data_must_be_consistent
+    return if salary.blank?
+
+    result = InssRateCalculatorService.new(salary).calculate
+
+    if inss_rate_type&.to_sym != result[:rate_type]
+      errors.add(:inss_rate_type, "não condiz com o salário informado (esperado: #{result[:rate_type]})")
+    end
+
+    if inss_rate.to_f.round(2) != result[:rate]
+      errors.add(:inss_rate, "não corresponde ao valor calculado (esperado: #{result[:rate]})")
+    end
+  end
 end
