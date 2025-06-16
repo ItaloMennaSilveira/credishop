@@ -1,7 +1,7 @@
-= form_with(model: @proponent, local: true) do |f|
+= form_with(model: @proponent, local: true, data: { controller: "inss", inss_token_value: SecureRandom.uuid }) do |f|
   - if @proponent.errors.any?
     #error_explanation
-      h2 = "#{pluralize(@proponent.errors.count, "error")} prohibited this proponent from being saved:"
+      h2 = "#{pluralize(@proponent.errors.count, 'error')} prohibited this proponent from being saved:"
       ul
         - @proponent.errors.full_messages.each do |message|
           li = message

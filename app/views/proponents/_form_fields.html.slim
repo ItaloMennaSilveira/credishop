@@ -12,8 +12,8 @@
   = text_field_tag :proponent_salary_masked, nil,
     class: "form-control",
     placeholder: "Informe o salário bruto (Ex: 3500.00)",
-    data: { controller: "mask inss", mask_target: "salary", inss_target: "salary", action: "keydown->inss#calculate blur->inss#calculate" }
-  = f.hidden_field :salary
+    data: { controller: "mask inss", mask_target: "salary", inss_target: "salaryMasked", action: "keydown->inss#calculate blur->inss#calculate" }
+  = f.hidden_field :salary, data: { inss_target: "salary" }
 
 .mb-3
   = f.label :inss_rate_type

@@ -38,12 +38,11 @@ class ProponentsController < ApplicationController
 
   def calculate_inss
     salary = params[:salary].to_f
-    result = InssRateCalculatorService.new(salary).calculate
+    token = params[:token].presence || SecureRandom.uuid
 
-    render json: {
-      inss_rate: result[:rate],
-      inss_rate_type: result[:rate_type]
-    }
+    InssRateCalculatorJob.perform_later(token, salary)
+
+    head :ok
   end
 
   def destroy

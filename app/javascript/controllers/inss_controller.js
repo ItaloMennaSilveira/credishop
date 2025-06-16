@@ -1,16 +1,41 @@
 import { Controller } from "@hotwired/stimulus"
+import consumer from "channels/consumer"
 
 export default class extends Controller {
-  static targets = ["salary"]
+  static targets = ["salary", "salaryMasked"]
+  static values = { token: String }
 
-  calculate(event) {
-    if (event.type === "keydown") {
-      if (event.key !== "Enter") return
-      event.preventDefault()
+  connect() {
+    if (!this.hasTokenValue) {
+      this.tokenValue = crypto.randomUUID()
     }
 
-    const salary = document.querySelector('input[name="proponent[salary]"]')?.value
-    if (!salary) return
+    this.subscription = consumer.subscriptions.create(
+      { channel: "InssRateChannel", token: this.tokenValue },
+      {
+        received: (data) => this.updateRateFields(data)
+      }
+    )
+  }
+
+  disconnect() {
+    if (this.subscription) {
+      this.subscription.unsubscribe()
+    }
+  }
+
+  calculate(event) {
+    if (event.type === "keydown" && event.key !== "Enter") return
+    if (event.type === "keydown") event.preventDefault()
+
+    const maskedSalary = this.salaryMaskedTarget?.value
+    const unmaskedSalary = this.unmaskSalary(maskedSalary)
+
+    if (!unmaskedSalary) return
+
+    if (this.hasSalaryTarget) {
+      this.salaryTarget.value = unmaskedSalary
+    }
 
     fetch("/proponents/calculate_inss", {
       method: "POST",
@@ -19,19 +44,22 @@ export default class extends Controller {
         "Accept": "application/json",
         "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
       },
-      body: JSON.stringify({ salary: salary })
-    }).then(response => response.json())
-      .then(data => this.updateRateFields(data))
-      .catch(error => console.error("INSS calculation error:", error))
+      body: JSON.stringify({ salary: unmaskedSalary, token: this.tokenValue })
+    }).catch(error => console.error("INSS calc request failed", error))
   }
 
   updateRateFields(data) {
-    const rateField = document.querySelector("#proponent_inss_rate");
-    const rateTypeField = document.querySelector("#proponent_inss_rate_type");
-    const rateTypeDisplay = document.querySelector("#proponent_inss_rate_type_display");
+    const rateField = document.querySelector("#proponent_inss_rate")
+    const rateTypeField = document.querySelector("#proponent_inss_rate_type")
+    const rateTypeDisplay = document.querySelector("#proponent_inss_rate_type_display")
 
-    if (rateField) rateField.value = data.inss_rate;
-    if (rateTypeField) rateTypeField.value = data.inss_rate_type;
-    if (rateTypeDisplay) rateTypeDisplay.value = data.inss_rate_type;
+    if (rateField) rateField.value = data.inss_rate
+    if (rateTypeField) rateTypeField.value = data.inss_rate_type
+    if (rateTypeDisplay) rateTypeDisplay.value = data.inss_rate_type
+  }
+
+  unmaskSalary(value) {
+    if (!value) return ""
+    return value.replace(/\./g, "").replace(",", ".")
   }
 }

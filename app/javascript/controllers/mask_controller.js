@@ -64,7 +64,11 @@ export default class extends Controller {
     })
 
     if (hiddenInput.value) {
-      mask.value = hiddenInput.value
+      const adjustedValue = parseFloat(hiddenInput.value).toLocaleString("pt-BR", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      })
+      mask.value = adjustedValue
     }
   }
 
