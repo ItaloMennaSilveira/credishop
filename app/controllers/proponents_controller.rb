@@ -1,8 +1,23 @@
 class ProponentsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_proponent, only: %i[show edit update destroy]
 
   def index
-    @proponents = Proponent.page(params[:page]).per(5)
+    salary_ranges = Proponent.inss_rate_types.keys.map(&:to_sym)
+
+    @paginated_groups = salary_ranges.index_with do |range|
+      Proponent
+        .where(inss_rate_type: Proponent.inss_rate_types[range])
+        .page(params["#{range}_page"])
+        .per(5)
+    end
+
+    @chart_data = Proponent.group(:inss_rate_type).count
+
+    respond_to do |format|
+      format.html
+      format.turbo_stream
+    end
   end
 
   def show

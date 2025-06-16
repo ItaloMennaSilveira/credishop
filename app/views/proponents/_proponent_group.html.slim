@@ -1,0 +1,30 @@
+turbo-frame id="proponents_#{range}"
+  .card.mb-4
+    .card-header.bg-secondary.text-white
+      h5.mb-0 = range.to_s.humanize
+
+    .card-body.p-0
+      table.table.table-striped.mb-0
+        thead
+          tr
+            th Name
+            th Document
+            th Salary
+            th INSS Rate Type
+            th INSS Rate
+            th Actions
+        tbody
+          - proponents.each do |proponent|
+            tr
+              td = proponent.name
+              td = proponent.document
+              td = number_to_currency(proponent.salary)
+              td = proponent.inss_rate_type
+              td = proponent.inss_rate
+              td
+                = link_to 'Show', proponent_path(proponent), class: 'btn btn-sm btn-info', data: { turbo_frame: "_top" }
+                = link_to 'Edit', edit_proponent_path(proponent), class: 'btn btn-sm btn-warning mx-1', data: { turbo_frame: "_top" }
+                = link_to 'Delete', proponent_path(proponent), method: :delete, data: { confirm: 'Are you sure?', turbo: false }, class: 'btn btn-sm btn-danger'
+
+    .card-footer.text-center
+      = paginate proponents, param_name: "#{range}_page"
