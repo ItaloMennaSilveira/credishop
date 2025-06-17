@@ -1,7 +1,7 @@
 = form_with(model: @proponent, local: true, data: { controller: "inss", inss_token_value: SecureRandom.uuid }) do |f|
   - if @proponent.errors.any?
     #error_explanation
-      h2 = "#{pluralize(@proponent.errors.count, 'error')} prohibited this proponent from being saved:"
+      h2 = "#{pluralize(@proponent.errors.count, 'error')} proibiu que este proponente fosse salvo:"
       ul
         - @proponent.errors.full_messages.each do |message|
           li = message
@@ -11,4 +11,4 @@
   = render 'proponents/contacts_fields', f: f
 
   .actions
-    = f.submit 'Save', class: 'btn btn-primary'
+    = f.submit 'Salvar', class: 'btn btn-primary'

@@ -35,9 +35,9 @@ html
     - if user_signed_in?
       nav.navbar.navbar-light.bg-light.mb-3
         .container-fluid
-          span.navbar-text
-            | Logged in as: #{current_user.email}
-          = button_to 'Logout', destroy_user_session_path, method: :delete, class: "btn btn-outline-danger btn-sm"
+          span.navbar-text.fw-bold
+            | Logado como: #{current_user.email}
+          = button_to 'Sair', destroy_user_session_path, method: :delete, class: "btn btn-outline-danger btn-sm"
 
     .container.mt-4
       = yield

@@ -1,23 +1,23 @@
-h1 Proponent Details
+h1 Detalhes do Proponente
 
 dl
-  dt Name
+  dt Nome
   dd = @proponent.name
 
-  dt Document
+  dt Documento
   dd = @proponent.document
 
-  dt Salary
-  dd = number_to_currency(@proponent.salary)
+  dt Salário
+  dd = number_to_currency(@proponent.salary, unit: "R$ ", separator: ",", delimiter: ".")
 
-  dt INSS Rate Type
-  dd = @proponent.inss_rate_type
+  dt Tipo da faixa
+  dd = @inss_labels[@proponent.inss_rate_type.to_sym]
 
-  dt INSS Rate
-  dd = @proponent.inss_rate
+  dt Taxa INSS
+  dd = number_to_currency(@proponent.inss_rate, unit: "R$ ", separator: ",", delimiter: ".")
 
   - if @proponent.addresses.any?
-    dt Addresses
+    dt Endereços
     dd
       ul.list-unstyled.mb-3
         - @proponent.addresses.each do |address|
@@ -25,12 +25,12 @@ dl
             | #{address.street}, #{address.number}, #{address.zip_code}, #{address.city} - #{address.state}
 
   - if @proponent.contacts.any?
-    dt Contacts
+    dt Contatos
     dd
       ul.list-unstyled.mb-3
         - @proponent.contacts.each do |contact|
           li
             | #{contact.contact_type.humanize}: #{contact.value}
 
-= link_to 'Edit', edit_proponent_path(@proponent), class: 'btn btn-warning me-2'
-= link_to 'Back', proponents_path, class: 'btn btn-secondary'
+= link_to 'Editar', edit_proponent_path(@proponent), class: 'btn btn-warning me-2'
+= link_to 'Voltar', proponents_path, class: 'btn btn-secondary'

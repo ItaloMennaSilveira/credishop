@@ -1,14 +1,14 @@
 .mb-3
-  = f.label :name
+  = f.label :nome
   = f.text_field :name, class: 'form-control', placeholder: 'Digite o nome completo'
 
 .mb-3
-  = f.label :document
+  = f.label :documento
   = text_field_tag :proponent_document_masked, nil, class: 'form-control', placeholder: 'Ex: 123.456.789-00', data: { controller: 'mask', mask_target: 'document' }
   = f.hidden_field :document
 
 .mb-3
-  = f.label :salary
+  = f.label "Salário"
   = text_field_tag :proponent_salary_masked, nil,
     class: "form-control",
     placeholder: "Informe o salário bruto (Ex: 3500.00)",
@@ -16,11 +16,11 @@
   = f.hidden_field :salary, data: { inss_target: "salary" }
 
 .mb-3
-  = f.label :inss_rate_type
-  = f.select :inss_rate_type, Proponent.inss_rate_types.keys.map { |k| [k.humanize, k] },
+  = f.label 'Tipo da faixa'
+  = f.select :inss_rate_type, inss_rate_labels.map { |key, value| [value, key] },
     {}, class: 'form-select bg-light text-muted', disabled: true, id: 'proponent_inss_rate_type_display'
   = f.hidden_field :inss_rate_type, id: 'proponent_inss_rate_type'
 
 .mb-3
-  = f.label :inss_rate
+  = f.label 'Taxa INSS'
   = f.text_field :inss_rate, class: 'form-control bg-light text-muted', readonly: true

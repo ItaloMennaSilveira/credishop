@@ -1,14 +1,14 @@
 - f.object.addresses.build if f.object.addresses.empty?
 
 hr
-h3 Addresses
+h3 Endereços
 #addresses
   - f.object.addresses.build if f.object.addresses.empty?
   = f.fields_for :addresses do |address|
     = render 'proponents/address_fields', f: address
 
 = button_tag type: 'button', class: 'btn btn-secondary mb-3', onclick: "addFields('addresses')"
-  | Add Address
+  | Adicionar endereço
 
 template#address-template.hidden
   = f.fields_for :addresses, f.object.addresses.build, child_index: "NEW_RECORD" do |address|
