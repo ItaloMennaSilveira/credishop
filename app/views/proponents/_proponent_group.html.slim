@@ -24,7 +24,7 @@ turbo-frame id="proponents_#{range}"
               td
                 = link_to 'Ver', proponent_path(proponent), class: 'btn btn-sm btn-info', data: { turbo_frame: "_top" }
                 = link_to 'Editar', edit_proponent_path(proponent), class: 'btn btn-sm btn-warning mx-1', data: { turbo_frame: "_top" }
-                = link_to 'Deletar', proponent_path(proponent), method: :delete, data: { confirm: 'Você tem certeza?', turbo: false }, class: 'btn btn-sm btn-danger'
+                = link_to 'Deletar', proponent_path(proponent), method: :delete, data: { turbo_confirm: 'Você tem certeza?', turbo_action: 'replace', turbo_frame: '_top' }, class: 'btn btn-sm btn-danger', remote: true, onclick: "setTimeout(() => location.reload(), 500);"
 
     .card-footer.text-center
       = paginate proponents, param_name: "#{range}_page"

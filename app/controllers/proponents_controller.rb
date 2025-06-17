@@ -60,8 +60,13 @@ class ProponentsController < ApplicationController
   end
 
   def destroy
+    @proponent = Proponent.find(params[:id])
     @proponent.destroy
-    redirect_to proponents_url, notice: "Proponent was successfully destroyed."
+
+    respond_to do |format|
+      format.html { redirect_to proponents_path, notice: 'Proponente removido com sucesso.' }
+      format.turbo_stream { render turbo_stream: turbo_stream.remove(@proponent) }
+    end
   end
 
   private
