@@ -1,5 +1,5 @@
-require 'faker'
-require 'cpf_cnpj'
+require "faker"
+require "cpf_cnpj"
 
 class ProponentSeedJob < ApplicationJob
   queue_as :default
@@ -84,13 +84,13 @@ class ProponentSeedJob < ApplicationJob
   def create_contact(proponent)
     contact_type = Contact.contact_types.keys.sample
     value = case contact_type
-            when 'phone', 'whatsapp'
+    when "phone", "whatsapp"
               ddd = Faker::Number.between(from: 11, to: 99)
               number = "9#{Faker::Number.number(digits: 8)}"
               "#{ddd}#{number}"
-            when 'email'
+    when "email"
               Faker::Internet.email
-            end
+    end
 
     proponent.contacts.create!(
       contact_type: contact_type,

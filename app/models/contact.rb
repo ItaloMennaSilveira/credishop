@@ -23,7 +23,7 @@ class Contact < ApplicationRecord
     return unless phone_or_whatsapp?
     return if value.blank?
 
-    digits = value.gsub(/\D/, '')
+    digits = value.gsub(/\D/, "")
     self.value = digits[0, 14]
   end
 

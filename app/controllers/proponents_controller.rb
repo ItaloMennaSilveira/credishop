@@ -37,7 +37,7 @@ class ProponentsController < ApplicationController
   def create
     @proponent = Proponent.new(proponent_params)
     if @proponent.save
-      redirect_to @proponent, notice: 'Proponent was successfully created.'
+      redirect_to @proponent, notice: "Proponent was successfully created."
     else
       render :new
     end
@@ -45,7 +45,7 @@ class ProponentsController < ApplicationController
 
   def update
     if @proponent.update(proponent_params)
-      redirect_to @proponent, notice: 'Proponent was successfully updated.'
+      redirect_to @proponent, notice: "Proponent was successfully updated."
     else
       render :edit, status: :unprocessable_entity
     end
@@ -62,7 +62,7 @@ class ProponentsController < ApplicationController
 
   def destroy
     @proponent.destroy
-    redirect_to proponents_url, notice: 'Proponent was successfully destroyed.'
+    redirect_to proponents_url, notice: "Proponent was successfully destroyed."
   end
 
   private
@@ -74,8 +74,8 @@ class ProponentsController < ApplicationController
   def proponent_params
     params.require(:proponent).permit(
       :name, :document, :salary, :inss_rate_type, :inss_rate,
-      addresses_attributes: [:id, :street, :number, :zip_code, :city, :state, :_destroy],
-      contacts_attributes: [:id, :contact_type, :value, :_destroy]
+      addresses_attributes: [ :id, :street, :number, :zip_code, :city, :state, :_destroy ],
+      contacts_attributes: [ :id, :contact_type, :value, :_destroy ]
     )
   end
 end

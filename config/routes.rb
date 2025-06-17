@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   end
 
   unauthenticated do
-    root to: redirect('/users/sign_in'), as: :unauthenticated_root
+    root to: redirect("/users/sign_in"), as: :unauthenticated_root
   end
 
   resources :proponents do

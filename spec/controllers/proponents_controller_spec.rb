@@ -4,8 +4,8 @@ RSpec.describe "/proponents", type: :request do
   let(:user) { create(:user) }
   let(:valid_attributes) do
     attributes_for(:proponent).merge(
-      addresses_attributes: [attributes_for(:address)],
-      contacts_attributes: [attributes_for(:contact)]
+      addresses_attributes: [ attributes_for(:address) ],
+      contacts_attributes: [ attributes_for(:contact) ]
     )
   end
 
