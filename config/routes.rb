@@ -3,8 +3,12 @@ Rails.application.routes.draw do
     registrations: "users/registrations"
   }
 
-  devise_scope :user do
-    root to: "devise/sessions#new"
+  authenticated :user do
+    root to: "proponents#index", as: :authenticated_root
+  end
+
+  unauthenticated do
+    root to: redirect('/users/sign_in'), as: :unauthenticated_root
   end
 
   resources :proponents do
