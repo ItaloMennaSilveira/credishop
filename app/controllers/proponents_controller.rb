@@ -1,8 +1,14 @@
 class ProponentsController < ApplicationController
+  include InssRateHelper
+
   before_action :authenticate_user!
   before_action :set_proponent, only: %i[show edit update destroy]
+  before_action :set_inss_rate_types, only: %i[index show edit]
 
   def index
+    @chart_data = Proponent.group(:inss_rate_type).count
+    @chart_labels = @chart_data.keys.map { |k| inss_rate_labels[k.to_sym] }
+
     salary_ranges = Proponent.inss_rate_types.keys.map(&:to_sym)
 
     @paginated_groups = salary_ranges.index_with do |range|
@@ -10,13 +16,6 @@ class ProponentsController < ApplicationController
         .where(inss_rate_type: Proponent.inss_rate_types[range])
         .page(params["#{range}_page"])
         .per(5)
-    end
-
-    @chart_data = Proponent.group(:inss_rate_type).count
-
-    respond_to do |format|
-      format.html
-      format.turbo_stream
     end
   end
 
@@ -69,6 +68,10 @@ class ProponentsController < ApplicationController
 
   def set_proponent
     @proponent = Proponent.find(params[:id])
+  end
+
+  def set_inss_rate_types
+    @inss_labels = inss_rate_labels
   end
 
   def proponent_params
